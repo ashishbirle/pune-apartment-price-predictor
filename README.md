@@ -14,4 +14,4 @@
 
 ### Run Locally:
 1.  pip install -r requirements.txt
-2.  streamlit runn app.py
+2.  streamlit run app.py

@@ -10,6 +10,7 @@
 
 ### Model used:
 - Linear Regression
+- Random Forest
 
 ### Run Locally:
 1.  pip install -r requirements.txt

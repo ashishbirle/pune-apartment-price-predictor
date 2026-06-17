@@ -3,7 +3,8 @@ import pandas as pd
 import pickle
 
 
-model = pickle.load(open("models/house_price_model.pkl", "rb"))
+model_lr = pickle.load(open("models/model_lr.pkl", "rb"))
+model_rf = pickle.load(open("models/model_rf.pkl", "rb"))
 area_encoder = pickle.load(open("models/area_encoder.pkl", "rb"))
 yesno_encoder = pickle.load(open("models/yesno_encoder.pkl", "rb"))
 
@@ -22,6 +23,16 @@ gym = st.checkbox("Gym")
 security = st.checkbox("Security")
 swimming_pool = st.checkbox("Swimming Pool")
 
+model_choice = st.selectbox(
+    "Choose Model",
+    [
+        "Linear Regression",
+        "Random Forest"
+    ]
+)
+
+
+
 if st.button("Predict Price"):
     area_encoded = area_encoder.transform([area])[0]
 
@@ -35,7 +46,11 @@ if st.button("Predict Price"):
         "swimming_pool": int(swimming_pool)
     }])
 
-    prediction = model.predict(input_df)[0]
+    if model_choice == "Linear Regression":
+        prediction = model_lr.predict(input_df)[0]
+    
+    else:
+        prediction = model_rf.predict(input_df)[0]
 
     st.success(
         f"Estimated Price: Rs {prediction:,.0f}"
